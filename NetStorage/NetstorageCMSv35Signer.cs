@@ -231,7 +231,10 @@ namespace Akamai.Netstorage
 
                     using (Stream requestStream = request.GetRequestStream())
                     using (this.UploadStream)
-                        this.UploadStream.CopyTo(requestStream, 32*1024);
+                    {
+                        UploadStream.Position = 0;
+                        this.UploadStream.CopyTo(requestStream, 32 * 1024);
+                    }
                 }
             }
 
