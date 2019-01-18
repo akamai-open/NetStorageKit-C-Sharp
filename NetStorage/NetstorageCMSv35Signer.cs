@@ -239,16 +239,23 @@ namespace Akamai.Netstorage
             try
             {
                 response = request.GetResponse();
+                return response.GetResponseStream();
             }
             catch (WebException e)
             {
                 // non 200 OK responses throw exceptions.
                 // is this because of Time drift? can we re-try?
-                using (response = e.Response)
-                    Validate(response);
+                try
+                {
+                    Validate(e.Response);
+                    return e.Response.GetResponseStream();
+                }
+                catch (Exception ex)
+                {
+                    e.Response.Close();
+                    throw ex;
+                }
             }
-
-            return response.GetResponseStream();
         }
 
         /// <summary>
