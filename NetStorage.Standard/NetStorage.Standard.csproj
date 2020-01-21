@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>NetStorageKit.Standard</PackageId>
+    <Authors>Meelis Talvis, Colin Bendell</Authors>
+    <Company>Akamai Technologies</Company>
+    <Product>NetStorageKit.Standard</Product>
+    <Description>.NET Standard version of the NetStorageKit</Description>
+    <RepositoryUrl>https://github.com/meelist/NetStorageKit-C-Sharp/tree/netstandard</RepositoryUrl>
+    <PackageTags>Akamai NetStorage NetStorageKit Net Storage</PackageTags>
+    <Version>1.0.5</Version>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile></DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>E:\dev\NetStorageKit\NetStorageKit-C-Sharp\NetStorage.Standard\NetStorage.Standard.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Polly" Version="6.1.0" />
+  </ItemGroup>
+
+</Project>

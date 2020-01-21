@@ -53,3 +53,23 @@ try (bool success = ns.Upload("/1234/example.zip", new FileInfo("../workingdir/s
 
 `CMS.exe -a dir -u user1 -k 1234abcd example.akamaihd.net/1234`
 
+
+# NetStorageKit .NET Standard
+
+This updated version of the NetStorageKit is built with .NET Standard and uses HtttpClient to send asynchronous requests to the Net Storage API.
+
+This package is available to download from the global nuget feed:
+https://www.nuget.org/packages/NetStorageKit.Standard/
+
+For example, to retrieve the directory contents:
+```c#
+using NetStorage.Standard;
+using NetStorage.Standard.Models;
+
+  using (var client = new NetStorageClient(new NetStorageCredentials("example.akamaihd.net", "user1", "1234abcd")))
+  {
+	var response = await client.DirAsync("/1234");
+	// TODO: read the HttpResponseMessage content
+  }
+```
+

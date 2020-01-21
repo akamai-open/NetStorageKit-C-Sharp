@@ -1,0 +1,275 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NetStorage.Standard</name>
+    </assembly>
+    <members>
+        <member name="T:NetStorage.Standard.KeyedHashAlgorithm">
+             <summary>
+             An enum of the hash algorithms supported by <see cref="!:#ExtensionMethods.ComputeKeyedHash(Stream, KeyedHashAlgorithm"/>
+             Currently supported hashes include MD5; SHA1; SHA256
+            
+             The string representation matches the <see cref="T:System.Security.Cryptography.HMAC"/> canonical names.
+             </summary>
+        </member>
+        <member name="T:NetStorage.Standard.ChecksumAlgorithm">
+             <summary>
+             An enum of the hash algorithms supported by <see cref="!:#ExtensionMethods.ComputeHash(Stream, ChecksumAlgorithm"/>
+             Currently supported hashes include MD5; SHA1; SHA256
+            
+             The string representation matches the <see cref="T:System.Security.Cryptography.HashAlgorithm"/> canonical names.
+             </summary>
+        </member>
+        <member name="T:NetStorage.Standard.Models.APIParams">
+            <summary>
+            The APIParams represents all the possible parameters for the CMS API
+            
+            Verion: always 1
+            Action: the cms action (eg: "dir", "upload", etc)
+            Format: for actions that return content, defines the format types (eg: "xml")
+            QuickDelete: always "imreallyreallysure"
+            Destination: URI Path for the rename
+            Target: URI Path of the existing file/dir for a symlink
+            MTime: modified time
+            Size: byte size of an uploaded file. NB: do not specify if indexing a zip
+            MD5: MD5 checksum
+            SHA1: SHA1 checksum
+            SHA256: SHA256 checksum
+            InxedZip: True if the zip file is to be enabled for serve from zip functionality
+            </summary>
+        </member>
+        <member name="M:NetStorage.Standard.NetStorageClient.GetNetStorageUri(System.String)">
+            <summary>
+            Constructs the full Net Storage URI with the host name as the prefix to the path
+            </summary>
+            <param name="path">/[CP Code]/[Path]</param>
+            <returns>Complete Net Storage URI</returns>
+        </member>
+        <member name="M:NetStorage.Standard.NetStorageClient.CreateActionHeader">
+            <summary>
+            Creates the Action header for the request
+            NB! NetStorageClient Params value has to be set first!
+            </summary>
+            <returns>Action header</returns>
+        </member>
+        <member name="M:NetStorage.Standard.NetStorageClient.CreateAuthDataHeader">
+            <summary>
+            Creates the Auth-Data header for the request
+            </summary>
+            <returns>Auth-Data header</returns>
+        </member>
+        <member name="M:NetStorage.Standard.NetStorageClient.CreateAuthSignHeader(System.String,System.String)">
+            <summary>
+            Uses the previously generated Action and Auth-Data headers to create the Auth-Sign header for the request
+            </summary>
+            <param name="action">Action header</param>
+            <param name="authData">Auth-Data header</param>
+            <returns>Auth-Sign header</returns>
+        </member>
+        <member name="M:NetStorage.Standard.NetStorageClient.SendAsync(System.Net.Http.HttpRequestMessage,System.Threading.CancellationToken)">
+            <inheritdoc />
+            <summary>
+            Generates new Akamai headers and executes the HTTP request
+            </summary>
+            <param name="request">Request to be executed</param>
+            <param name="cancellationToken">Token for cancelling the request</param>
+            <returns>HTTP response message</returns>
+        </member>
+        <member name="M:NetStorage.Standard.NetStorageClient.ComputeHeadersAsync">
+            <summary>
+            Computes the required headers for the request
+            </summary>
+            <returns>Dictionary containing the headers</returns>
+        </member>
+        <member name="M:NetStorage.Standard.NetStorageClient.ExecuteWithPollyAsync(System.String,System.Net.Http.HttpMethod)">
+            <summary>
+            Executes the request by using Polly to retry failed requests
+            </summary>
+            <param name="path">/[CP Code]/[Path]</param>
+            <param name="method">HTTP method</param>
+            <returns>HTTP response message</returns>
+        </member>
+        <member name="M:NetStorage.Standard.NetStorageClient.DeleteAsync(System.String)">
+            <summary>
+            You can "delete" an object from an ObjectStore (NS4) storage group
+            </summary>
+            <param name="path">/[CP code]/[path]/[file.ext]</param>
+            <returns>HTTP response message</returns>
+        </member>
+        <member name="M:NetStorage.Standard.NetStorageClient.DirAsync(System.String)">
+            <summary>
+            Use the "dir" action with an NS4 storage group to list the objects directly within the specified directory (similar to a standard "ls" or "dir" command)
+            </summary>
+            <param name="path">/[CP Code]/[Path]</param>
+            <returns>HTTP response message</returns>
+        </member>
+        <member name="M:NetStorage.Standard.NetStorageClient.DownloadAsync(System.String)">
+            <summary>
+            Use the "download" action to download the specified file from an ObjectStore (NS4) storage group
+            </summary>
+            <param name="path">/[CP code]/[path]/[file.ext]</param>
+            <returns>HTTP response message</returns>
+        </member>
+        <member name="M:NetStorage.Standard.NetStorageClient.DUAsync(System.String)">
+            <summary>
+            You can use the "du" action to return disk usage information for a specified directory in an ObjectStore (NS4) storage group
+            </summary>
+            <param name="path">/[CP Code]/[Path]</param>
+            <returns>HTTP response message</returns>
+        </member>
+        <member name="M:NetStorage.Standard.NetStorageClient.ListAsync(System.String)">
+            <summary>
+            You can use the "list" action to recursively list all of the objects within the specified directory.
+            (This includes all content in all subdirectories that may exist in the named directory's "tree.")
+            </summary>
+            <param name="path">/[CP Code]/[Path]</param>
+            <returns>HTTP response message</returns>
+        </member>
+        <member name="M:NetStorage.Standard.NetStorageClient.MkDirAsync(System.String)">
+            <summary>
+            You can use the "mkdir" action to create a new explicit directory in an ObjectStore (NS4) storage group
+            </summary>
+            <param name="path">/[CP Code]/[path]/[new_directory]</param>
+            <returns>HTTP response message</returns>
+        </member>
+        <member name="M:NetStorage.Standard.NetStorageClient.MTimeAsync(System.String,System.Nullable{System.DateTime})">
+            <summary>
+            Incorporate the "mtime" action to change a files modification time ("touch") in an ObjectStore (NS4) storage group
+            </summary>
+            <param name="path">/[CP code]/[path]/[file.ext]</param>
+            <param name="newTime">Set the variable as the desired modification time for the target content (using UNIX epoch time)</param>
+            <returns>HTTP response message</returns>
+        </member>
+        <member name="M:NetStorage.Standard.NetStorageClient.QuickDeleteAsync(System.String)">
+            <summary>
+            You can use the "quick-delete" with ObjectStore (NS4) to perform a delete of a selected directory, including all contents
+            </summary>
+            <param name="path">/[CP Code]/[path]/[directory]</param>
+            <returns>HTTP response message</returns>
+        </member>
+        <member name="M:NetStorage.Standard.NetStorageClient.RenameAsync(System.String,System.String)">
+            <summary>
+            You can use the "rename" action with ObjectStore (NS4) to target a specific file or symbolic link in order to rename it
+            </summary>
+            <param name="path">/[CP Code]/[path]/[file.ext]</param>
+            <param name="destination">Include the [CP Code] root, followed by the [path] destination where the renamed file is to reside.
+            Finally, include the new name [file.ext] for the object and include the extension, if applicable.
+            Ensure that special characters are query string encoded as required.
+            For example, any forward slashes ("/") would need to be represented as %2F, in support of query string encoding.</param>
+            <returns>HTTP response message</returns>
+        </member>
+        <member name="M:NetStorage.Standard.NetStorageClient.RmDirAsync(System.String)">
+            <summary>
+            You can delete an empty directory in ObjectStore (NS4) with the "rmdir" action
+            </summary>
+            <param name="path">/[CP Code]/[path]/[target directory]</param>
+            <returns>HTTP response message</returns>
+        </member>
+        <member name="M:NetStorage.Standard.NetStorageClient.StatAsync(System.String)">
+            <summary>
+            You can return stat structure (information) for a named file, symlink or directory with the "stat" action in ObjectStore (NS4)
+            </summary>
+            <param name="path">/[CP Code]/[path]/[target object]</param>
+            <returns>HTTP response message</returns>
+        </member>
+        <member name="M:NetStorage.Standard.NetStorageClient.SymLinkAsync(System.String,System.String)">
+            <summary>
+            You can create a symbolic link in ObjectStore (NS4) with the "symlink" action
+            Path is the symlink to be created and Target is the existing object in Net Storage
+            </summary>
+            <param name="path">/[CP Code]/[path]</param>
+            <param name="target">Used to define the target of the symlink.
+            Include the complete [path] to, as well as the name ( [link]) for this file (including the extension, if applicable).
+            Ensure that special characters (“ /”) are query string encoded. For example, any forward slashes ("/") would need to be represented as %2F, in support of query string encoding.</param>
+            <returns>HTTP response message</returns>
+        </member>
+        <member name="M:NetStorage.Standard.NetStorageClient.UploadAsync(System.String,System.IO.FileInfo,System.Nullable{System.Boolean})">
+            <summary>
+            You can upload files to an ObjectStore (NS4) storage group with the "upload" action
+            </summary>
+            <param name="path">/[CP Code]/[path]/[file.ext]</param>
+            <param name="srcFile">File to be uploaded</param>
+            <param name="indexZip">Include this to enable az2z processing to index uploaded “.zip” archive files for the “Serve from Zip” feature.
+            (Archive files must be indexed before they can be used with Serve from Zip.)
+            The "2" serves as the version currently supported with ObjectStore (NS4) storage groups.</param>
+            <returns>HTTP response message</returns>
+        </member>
+        <member name="M:NetStorage.Standard.NetStorageClient.UploadAsync(System.String,System.Byte[],System.IO.Stream,System.Nullable{System.DateTime})">
+            <summary>
+            You can upload files to an ObjectStore (NS4) storage group with the "upload" action
+            </summary>
+            <param name="path">/[CP Code]/[path]/[file.ext]</param>
+            <param name="checksum">Computed hash in SHA256 for the source file</param>
+            <param name="srcFile">Source file as a stream</param>
+            <param name="lastWriteTime">Last write time of the file</param>
+            <returns>HTTP response message</returns>
+        </member>
+        <member name="M:NetStorage.Standard.Signer.GetEpochSeconds(System.DateTime)">
+            <summary>
+            determine the number of seconds since unix epoch
+            </summary>
+            <param name="current">the date and time to convert</param>
+            <returns>the number of seconds since unix epoch</returns>
+        </member>
+        <member name="M:NetStorage.Standard.Signer.UrlEncode(System.String)">
+            <summary>
+            a utility method to uri encode a text string
+            </summary>
+            <param name="data">the string</param>
+            <returns>the escaped version</returns>
+        </member>
+        <member name="M:NetStorage.Standard.Signer.ParamsNameFormatter(System.String)">
+            <summary>
+            All Netstorage parameters have lowercase names
+            </summary>
+        </member>
+        <member name="M:NetStorage.Standard.Signer.ParamsValueFormatter(System.Object)">
+            <summary>
+            Custom Formatter for API Event. Of particular interest is:
+            DateTime - formatted as a (long) which is represented as seconds since epoch
+            byte[] - formatted as hex
+            bool - formatted as 1 or 0
+            </summary>
+        </member>
+        <member name="M:NetStorage.Standard.Signer.ToHex(System.Byte[])">
+            <summary>
+            Hex encoding wrapper for a byte array. The output will be 2 character padded string in lower case.
+            </summary>
+            <param name="data">a byte array to encode. The assumption is that the string to encode 
+            is small enough to be held in memory without streaming the encoding</param>
+            <returns>a 2 character zero padded string in lower case</returns>
+        </member>
+        <member name="M:NetStorage.Standard.Signer.ToByteArray(System.String)">
+            <summary>
+            Retrieve the byte array for a string in UTF8 encoding
+            </summary>
+            <param name="data">the data string</param>
+            <returns>the UTF8 encoded byte array</returns>
+        </member>
+        <member name="M:NetStorage.Standard.Signer.ComputeKeyedHash(System.Byte[],System.String,NetStorage.Standard.KeyedHashAlgorithm)">
+            <summary>
+            Computes the HMAC hash of a given byte[]. This is a wrapper over the Mac crypto functions.
+            </summary>
+            <param name="data">byte[] of content to hash</param>
+            <param name="key">secret key to salt the hash. This is assumed to be UTF-8 encoded</param>
+            <param name="hashType">determines which alogirthm to use. The recommendation is to use HMAC-SHA256</param>
+            <returns>a byte[] presenting the HMAC hash of the source data. If the data object is null, null will be returned</returns>
+        </member>
+        <member name="M:NetStorage.Standard.Signer.ToBase64(System.Byte[])">
+            <summary>
+            Base64-encode a byte array.
+            </summary>
+            <param name="data">byte array to encode.</param>
+            <returns>Encoded string.</returns>
+        </member>
+        <member name="M:NetStorage.Standard.Signer.ComputeHash(System.IO.Stream,NetStorage.Standard.ChecksumAlgorithm)">
+            <summary>
+            Computes the hash of a given InputStream. This is a wrapper over the HashAlgorithm crypto functions.
+            </summary>
+            <param name="stream">the source stream. Use a MemoryStream if uncertain.</param>
+            <param name="hashType">the Algorithm to use to compute the hash</param>
+            <returns>a byte[] representation of the hash. If the Stream is a null object 
+            then null will be returned. If the Stream is empty an empty byte[] {} will be returned.</returns>
+        </member>
+    </members>
+</doc>

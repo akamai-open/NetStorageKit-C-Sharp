@@ -1,11 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetStorage", "NetStorage\NetStorage.csproj", "{348221B5-C2E0-4CA3-A0F7-188AF7A46117}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetStorageTest", "NetStorageTest\NetStorageTest.csproj", "{0A30CC8A-869F-4BD7-B25D-7977C5B33675}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetStorageExample", "NetStorageExample\NetStorageExample.csproj", "{CBC8F2AD-3028-4D8E-A5B4-216953D245BD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetStorage.Standard", "NetStorage.Standard\NetStorage.Standard.csproj", "{BDC9874F-5F45-40B1-97EF-D407A2C25591}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetStorage.Standard.Test", "NetStorage.Standard.Test\NetStorage.Standard.Test.csproj", "{37671073-BE97-4CCA-9203-5109CF8F278C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,8 +31,19 @@ Global
 		{CBC8F2AD-3028-4D8E-A5B4-216953D245BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CBC8F2AD-3028-4D8E-A5B4-216953D245BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CBC8F2AD-3028-4D8E-A5B4-216953D245BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDC9874F-5F45-40B1-97EF-D407A2C25591}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDC9874F-5F45-40B1-97EF-D407A2C25591}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDC9874F-5F45-40B1-97EF-D407A2C25591}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDC9874F-5F45-40B1-97EF-D407A2C25591}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37671073-BE97-4CCA-9203-5109CF8F278C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37671073-BE97-4CCA-9203-5109CF8F278C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37671073-BE97-4CCA-9203-5109CF8F278C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37671073-BE97-4CCA-9203-5109CF8F278C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5279B851-B289-4F7E-A17B-B831CDB96E88}
 	EndGlobalSection
 EndGlobal
